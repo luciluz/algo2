@@ -1,6 +1,7 @@
 #include <vector>
 #include "algobot.h"
 #include <set>
+#include <map>
 
 using namespace std;
 
@@ -57,32 +58,50 @@ bool mismos_elementos(vector<int> a, vector<int> b) {
 
 // Ejercicio 4
 bool mismos_elementos_v2(vector<int> a, vector<int> b){
-    bool res = true;
-    set<int> c;
-    for(int i = 0; i < a.size(); i++){
-        c.insert(a[i]);
+    set<int> ca(a.begin(), a.end());
+    set<int> cb(b.begin(), b.end());
+    return ca == cb;
+}
+
+// Ejercicio 5
+map<int, int> contar_apariciones(vector<int> s) {
+    map<int, int> contador_de_apariciones;
+    for(int i = 0; i < s.size(); i++){
+        contador_de_apariciones[s[i]] += 1;
     }
-    for(int j = 0; j < b.size(); j++){
-        if(c.count(b[j]) == 0){
-            res = false;
+    return contador_de_apariciones;
+}
+
+// Ejercicio 6
+int cantApariciones(int k, vector<int> s){
+    int res = 0;
+    for(int i = 0; i<s.size();i++){
+        if(s[i]==k){
+            res += 1;
         }
     }
     return res;
 }
 
-// Ejercicio 5
-map<int, int> contar_apariciones(vector<int> s) {
-    return map<int, int>();
-}
-
-// Ejercicio 6
 vector<int> filtrar_repetidos(vector<int> s) {
-    return vector<int>();
+    vector<int> v;
+    for (int i=0; i<s.size();i++){
+        if(cantApariciones(s[i],s)==1){
+            v.push_back(s[i]);
+        }
+    }
+    return v;
 }
 
 // Ejercicio 7
 set<int> interseccion(set<int> a, set<int> b) {
-    return set<int>();
+    set<int> c;
+    for(auto i = a.begin(); i != a.end(); ++i){
+        if(b.count(*i) == 1){
+            c.insert(*i);
+        }
+    }
+    return c;
 }
 
 // Ejercicio 8
@@ -102,5 +121,5 @@ bool integrantes_repetidos(vector<Mail> s) {
 
 // Ejercicio 11
 map<set<LU>, Mail> entregas_finales(vector<Mail> s) {
-  return map<set<LU>, Mail>();
+    return map<set<LU>, Mail>();
 }
