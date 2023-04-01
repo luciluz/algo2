@@ -106,20 +106,52 @@ set<int> interseccion(set<int> a, set<int> b) {
 
 // Ejercicio 8
 map<int, set<int>> agrupar_por_unidades(vector<int> s) {
-    return map<int, set<int>>();
+    map<int, set<int>> agrupar_mod_10;
+    for(int i=0;i < s.size(); i++){
+        agrupar_mod_10[s[i]%10].insert(s[i]);
+    }
+
+    return agrupar_mod_10;
 }
 
 // Ejercicio 9
 vector<char> traducir(vector<pair<char, char>> tr, vector<char> str) {
-    return vector<char>();
+    vector<char> res;
+    for(int i = 0;i < str.size(); i++){
+        bool existe = false;
+        for(int j = 0; j< tr.size(); j++){
+            if(tr[j].first == str[i]){
+                res.push_back(tr[j].second);
+                existe = true;
+                break;
+            }
+        }
+        if(!existe){
+            res.push_back(str[i]);
+        }
+    }
+    return res;
 }
 
 // Ejercicio 10
 bool integrantes_repetidos(vector<Mail> s) {
-    return true;
+    for(Mail m1: s){
+        for(Mail m2: s){
+            if(m1.libretas() != m2.libretas()){
+                for(LU libreta: m1.libretas()){
+                    if(m2.libretas().count(libreta) > 0) return true;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 // Ejercicio 11
 map<set<LU>, Mail> entregas_finales(vector<Mail> s) {
-    return map<set<LU>, Mail>();
+    map<set<LU>, Mail> res;
+    for(Mail m: s){
+        if(m.adjunto()) res[m.libretas()] = m;
+    }
+    return res;
 }
