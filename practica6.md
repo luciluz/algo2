@@ -47,6 +47,7 @@ Complejidad: O(n*log n)
 ## Ejercicio 2
 <div style="text-align: justify">
 La idea es fijarse en el elemento del medio si es igual o no a su índice. Si te da true ya está. En caso contrario, si es menor al indice quiere decir debo hacer la recursión en la mitad derecha. Si es mayor, hago la recursión sobre la mitad izquierda. La complejidad en peor caso es O(log n) porque no necesito recorrer todo el arreglo ya que voy haciendo recursión sobre la mitad.
+</div>
 <br>
 
 ```cpp
