@@ -1,4 +1,6 @@
-Ej 6
+# Práctica 5 Ordenamiento
+
+## Ejercicio 6
 <div style="text-align: justify">
 La idea es armar un arreglo con todas las escaleras, donde cada escalera se represente con tupla(cantEscalones, primerValor). Luego se ordena ese arreglo
 con mergeSort o quickSort (no se puede usar un algoritmo lineal, ya que si bien la cantEscalones es menor al tamaño del arreglo, los valores de cada
@@ -54,7 +56,7 @@ void ponerEscalera(int arr[], int i, tuple<int, int> esc){
 
 Complejidad: O(n+m*log m) donde n es el tamño del arreglo y m es la cantidad de escaleras. Como m<=n se puede expresar como O(n*log n).
 
-Ej 9
+## Ejercicio 9
 <div style="text-align: justify">
 1- el algoritmo de ordenarPlanilla se puede resolver de forma lineal ya que los puntajes son menores o iguales a 10. La idea del algoritmo
     es armar dos arreglos, uno con todas las mujeres y otro con todos los hombres. Luego cada uno de esos ordenarlos con counting sort.
