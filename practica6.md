@@ -45,3 +45,27 @@ bool esMasALaIzq(int arr[],int izq, int der){
 Complejidad: O(n*log n)
 
 ## Ejercicio 2
+<div style="text-align: justify">
+La idea es fijarse en el elemento del medio si es igual o no a su índice. Si te da true ya está. En caso contrario, si es menor al indice quiere decir debo hacer la recursión en la mitad derecha. Si es mayor, hago la recursión sobre la mitad izquierda. La complejidad en peor caso es O(log n) porque no necesito recorrer todo el arreglo ya que voy haciendo recursión sobre la mitad.
+<br>
+
+```cpp
+bool existePosIgualIndice(int arr[],int inicio, int final){
+    if (inicio==final) {
+        return arr[inicio]==inicio;
+    }
+
+    int mid=(inicio+final)/2;
+    if(arr[mid]==mid){
+        return true;
+    }
+    if(arr[mid]>mid){
+        return existePosIgualIndice(arr,inicio,mid-1);
+    }
+    else{
+        return existePosIgualIndice(arr,mid+1, final);
+    }
+}
+```
+
+Complejidad: O(log n)
