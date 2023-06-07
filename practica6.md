@@ -41,7 +41,6 @@ bool esMasALaIzq(int arr[],int izq, int der){
     return false;
 }
 ```
-
 Complejidad: O(n*log n)
 
 ## Ejercicio 2
@@ -68,5 +67,36 @@ bool existePosIgualIndice(int arr[],int inicio, int final){
     }
 }
 ```
-
 Complejidad: O(log n)
+
+## Ejercicio 3
+<div style="text-align: justify">
+  Tenemos a^b, la idea es resolverlo en tiempo log(b).<br>
+    - Si b es par ➔ a^b = a^2k = (a^k)^2 ➔ puedo hacer la recursión con k como exponente y al resultado lo multiplico por sí mismo.<br>
+    - Si b es impar ➔ a^b = a^(2k+1) = a*a^2k = a*(a^k)^2 ➔ puedo hacer la recursión con k como exponente y al resultado lo multiplico por sí mismo y por a.<br>
+  La complejidad es logarítmica porque la recursión se va haciendo con la mitad del arreglo. Además depende de b porque es el exponente el que se va reduciendo.
+</div>
+<br>
+
+
+```cpp
+int potenciaLog(int base, int exp){
+    int res=0;
+
+    if(exp==0){
+        res=1;
+        return res;
+    }
+    if(exp%2==0){
+        res=potenciaLog(base, exp/2);
+        res*=res;
+    }
+    else{
+        res=potenciaLog(base, exp/2);
+        res*=res;
+        res*=base;
+    }
+    return res;
+}
+```
+Complejidad: O(log b)
