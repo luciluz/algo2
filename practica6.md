@@ -100,3 +100,24 @@ int potenciaLog(int base, int exp){
 }
 ```
 Complejidad: O(log b)
+
+## Ejercicio 6
+<div style="text-align: justify">
+  - ...
+</div>
+<br>
+
+
+```cpp
+//creo la estructura del arbol
+struct arbolBinario {
+    int valor;
+    arbolBinario* izquierdo;
+    arbolBinario* derecho;
+
+    arbolBinario(int v) : valor(v), izquierdo(nullptr), derecho(nullptr) {}
+};
+int distanciaMax(arbolBinario ab){
+   
+}
+```
