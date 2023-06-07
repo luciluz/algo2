@@ -115,7 +115,8 @@ struct nodo {
 
     nodo(int v) : valor(v), izq(nullptr), der(nullptr) {}
 
-    int maxDistancia(nodo *arbol);
+    int altura(nodo* arbol);
+    int maxDistancia(nodo* arbol);
 };
 
 int max(int a, int b) {
@@ -127,21 +128,27 @@ int max(int a, int b) {
     }
 }
 
-int nodo::maxDistancia(nodo* arbol) {
+int nodo::altura(nodo* arbol) {
     if(arbol == nullptr){
         return 0;
     }
     if(arbol->izq != nullptr && arbol->der != nullptr){ // caso dos hijos
-        return 1+ max(maxDistancia(arbol->izq),maxDistancia(arbol->der));
+        return 1+ max(altura(arbol->izq),altura(arbol->der));
     }
     if(arbol->izq != nullptr){ // tiene 1 hijo y es el izq
-        return 1 + maxDistancia(arbol->izq);
+        return 1 + altura(arbol->izq);
     }
     if(arbol->der != nullptr){ // tiene 1 hijo y es el der
-        return 1 + maxDistancia(arbol->der);
+        return 1 + altura(arbol->der);
     }
 
     //no tiene hijos
     return 0;
 }
+
+int nodo::maxDistancia(nodo* arbol) {
+    return altura(arbol->izquierdo) + altura(arbol->derecho)
+}
+
+
 ```
