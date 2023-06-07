@@ -102,7 +102,7 @@ Complejidad: O(log b)
 
 ## Ejercicio 6
 <div style="text-align: justify">
-Dado un arbol, quiero encontrar la distancia máxima que hay entre dos nodos. Para ello empiezo desde la raíz y voy haciendo recursión buscando el máximo entre ellas sumando 1 cada vez. Debo fijarme en los casos en que tenga 2 hijos, 1 hijo o ningún hijo, además del caso base cuándo la raíz es null. 
+Dado un arbol, quiero encontrar la distancia máxima que hay entre dos nodos. Para ello calculo la altura del hijo izquierdo, la altura del hijo derecho y después le sumo 2. 
 </div>
 <br>
 
@@ -147,7 +147,7 @@ int nodo::altura(nodo* arbol) {
 }
 
 int nodo::maxDistancia(nodo* arbol) {
-    return altura(arbol->izquierdo) + altura(arbol->derecho)
+    return altura(arbol->izquierdo) + altura(arbol->derecho) + 2
 }
 
 
