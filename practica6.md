@@ -3,8 +3,7 @@
 ## Ejercicio 1
 
 <div style="text-align: justify">
-La idea es usar un algoritmo similar al mergeSort. Es decir, buscamos la mitad, llamamos recursivamente a cada mitad del arreglo y luego
-  vemos si la suma del lado izquiero es mayor a la del lado derecho.
+La idea es usar un algoritmo similar al mergeSort. Es decir, buscamos la mitad, llamamos recursivamente a cada mitad del arreglo y luego vemos si la suma del lado izquierdo es mayor a la del lado derecho.
 </div>
 <br>
 
@@ -103,21 +102,46 @@ Complejidad: O(log b)
 
 ## Ejercicio 6
 <div style="text-align: justify">
-  - ...
+Dado un arbol, quiero encontrar la distancia máxima que hay entre dos nodos. Para ello empiezo desde la raíz y voy haciendo recursión buscando el máximo entre ellas sumando 1 cada vez. Debo fijarme en los casos en que tenga 2 hijos, 1 hijo o ningún hijo, además del caso base cuándo la raíz es null. 
 </div>
 <br>
 
 
 ```cpp
-//creo la estructura del arbol
-struct arbolBinario {
+struct nodo {
     int valor;
-    arbolBinario* izquierdo;
-    arbolBinario* derecho;
+    nodo* izq;
+    nodo* der;
 
-    arbolBinario(int v) : valor(v), izquierdo(nullptr), derecho(nullptr) {}
+    nodo(int v) : valor(v), izq(nullptr), der(nullptr) {}
+
+    int maxDistancia(nodo *arbol);
 };
-int distanciaMax(arbolBinario ab){
-   
+
+int max(int a, int b) {
+    if(a>=b){
+        return a;
+    }
+    else{
+        return b;
+    }
+}
+
+int nodo::maxDistancia(nodo* arbol) {
+    if(arbol == nullptr){
+        return 0;
+    }
+    if(arbol->izq != nullptr && arbol->der != nullptr){ // caso dos hijos
+        return 1+ max(maxDistancia(arbol->izq),maxDistancia(arbol->der));
+    }
+    if(arbol->izq != nullptr){ // tiene 1 hijo y es el izq
+        return 1 + maxDistancia(arbol->izq);
+    }
+    if(arbol->der != nullptr){ // tiene 1 hijo y es el der
+        return 1 + maxDistancia(arbol->der);
+    }
+
+    //no tiene hijos
+    return 0;
 }
 ```
