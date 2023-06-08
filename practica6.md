@@ -102,24 +102,31 @@ Complejidad: O(log b)
 
 ## Ejercicio 6
 <div style="text-align: justify">
-Dado un arbol, quiero encontrar la distancia máxima que hay entre dos nodos. Para ello calculo la altura del hijo izquierdo, la altura del hijo derecho y después le sumo 2. 
+Dado un arbol, quiero encontrar la distancia máxima que hay entre dos nodos. Para ello, se hace recursión con cada hijo del árbol. Luego, devuelvo el máximo entre la recursión de los dos hijos y la suma de las alturas de esos mismos.
 </div>
 <br>
 
 
 ```cpp
-struct nodo {
+struct Nodo { // estructura del árbol
     int valor;
-    nodo* izq;
-    nodo* der;
+    Nodo* izq;
+    Nodo* der;
 
-    nodo(int v) : valor(v), izq(nullptr), der(nullptr) {}
-
-    int altura(nodo* arbol);
-    int maxDistancia(nodo* arbol);
+    Nodo(int v) : valor(v), izq(nullptr), der(nullptr) {}
 };
 
-int max(int a, int b) {
+void insertarNodo(Nodo*& raiz, int valor) { // este algoritmo sirve si se quiere testear el maxDistanciaABB
+    if (raiz == nullptr) {
+        raiz = new Nodo(valor);
+    } else if (valor < raiz->valor) {
+        insertarNodo(raiz->izq, valor);
+    } else {
+        insertarNodo(raiz->der, valor);
+    }
+}
+
+int max(int a, int b) { // algoritmo que devuelve el máximo entre dos enteros
     if(a>=b){
         return a;
     }
@@ -128,27 +135,20 @@ int max(int a, int b) {
     }
 }
 
-int nodo::altura(nodo* arbol) {
-    if(arbol == nullptr){
+int alturaABB(Nodo* arbol) { // esto calcula la altura de un ABB
+    if (arbol == nullptr) {
         return 0;
     }
-    if(arbol->izq != nullptr && arbol->der != nullptr){ // caso dos hijos
-        return 1+ max(altura(arbol->izq),altura(arbol->der));
-    }
-    if(arbol->izq != nullptr){ // tiene 1 hijo y es el izq
-        return 1 + altura(arbol->izq);
-    }
-    if(arbol->der != nullptr){ // tiene 1 hijo y es el der
-        return 1 + altura(arbol->der);
-    }
-
-    //no tiene hijos
-    return 0;
+    return 1 + max(alturaABB(arbol->izq), alturaABB(arbol->der));
 }
 
-int nodo::maxDistancia(nodo* arbol) {
-    return altura(arbol->izquierdo) + altura(arbol->derecho) + 2
+int maxDistanciaABB(Nodo* nodo) { // esta es la función que pide la consigna
+    if (nodo == nullptr) {
+        return 0;
+    }
+    int izqDistancia = maxDistanciaABB(nodo->izq);
+    int derDistancia = maxDistanciaABB(nodo->der);
+
+    return max(max(izqDistancia, derDistancia), alturaABB(nodo->izq) + alturaABB(nodo->der));
 }
-
-
 ```
