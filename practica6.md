@@ -270,6 +270,7 @@ int parejasEnDesorden(int arr[], int l, int r) {
 Complejidad: O(n * log n)
 
 ## Ejercicio 8
+### 1.
 <div style="text-align: justify">
 Aquí hice algo parecido a búsqueda binaria pero con matrices. La idea es dividir la matriz en dos y fijarse con la función conjuncionSubmatriz si da true o falso. Si ese resultado es true quiere decir que no hay ningún false en esa mitad entonces se hace recursión sobre la otra. Se sigue así hasta encontrar la corrdenada que se necesita.
 </div>
@@ -299,7 +300,7 @@ tuple<int, int> buscarFalse(vector<vector<bool>> A, int i0, int i1, int j0, int 
     }
 
     // este es el caso general, es parecido al de arriba pero voy reduciendo las columnas (j)
-    if(!conjMitadColumIzq && j0==j1){ // si da falso es porque algún falso hay en esta mitad
+    if(!conjMitadColumIzq){ // si da falso es porque algún falso hay en esta mitad
         return buscarFalse(A,i0, i1, j0, mitadColum);
     }
     else{ // si lo anterior da true entonces el falso está en la otra mitad
@@ -307,4 +308,50 @@ tuple<int, int> buscarFalse(vector<vector<bool>> A, int i0, int i1, int j0, int 
     }
 }
 ```
-Complejidad: O(n * log n) ? (siendo n cantidad de posiciones?) 
+Complejidad: O(log n) ? (siendo n cantidad de posiciones?) 
+
+### 2.
+<div style="text-align: justify">
+En este caso el algoritmo es similar, sólo hay que hacer algunos cambios. La recursion siempre se hará si es que hay un false en esa mitad y parará cuando llegue a una posición false o simplemente no hay ningún falso en esas mitades.
+</div>
+<br>
+
+```cpp
+int cuantosFalses(vector<vector<bool>> A, int i0, int i1, int j0, int j1){
+
+    // busco la mitad de filas y columnas
+    int mitadFila = (i0+i1)/2;
+    int mitadColum = (j0+j1)/2;
+
+    // guardo el bool correspondiente a cada mitad de matriz
+    bool conjMitadFilaIzq = conjuncionSubmatriz(A,i0, mitadFila, j0, j1);
+    bool conjMitadFilaDer = conjuncionSubmatriz(A,mitadFila+1, i1, j0, j1);
+    bool conjMitadColumIzq = conjuncionSubmatriz(A,i0, i1, j0, mitadColum);
+    bool conjMitadColumDer = conjuncionSubmatriz(A,i0, i1, mitadColum, j1);
+
+    //caso base: significa que estoy en la posición que tiene un false
+    if(i0==i1 && j0==j1){
+        return 1;
+    }
+
+    // caso cuando tengo una columna
+    if(!conjMitadFilaIzq && !conjMitadFilaDer && j0==j1){ // ambas mitades tienen algún false
+        return cuantosFalses(A,i0, mitadFila, j0, j1) + cuantosFalses(A, mitadFila+1, i1, j0, j1); // devuelvo la suma de ambas
+    }
+    else if(!conjMitadFilaIzq && j0==j1) { // aquí hago recursión solo en la mitad que tiene un false
+        return cuantosFalses(A, i0, mitadFila, j0, j1);
+    } else if(!conjMitadFilaDer && j0==j1) {
+        return cuantosFalses(A, mitadFila+1, i1, j0, j1);
+    }
+
+    // este es el caso general, es parecido al de arriba pero voy reduciendo las columnas (j)
+    if(!conjMitadColumIzq && !conjMitadColumDer){ // ambas mitades tienen algún false
+        return cuantosFalses(A,i0, i1, j0, mitadColum) + cuantosFalses(A, i0, i1, mitadColum+1, j1); // devuelvo la suma
+    }else if(!conjMitadColumIzq){ // aquí hago recursión solo en la mitad que tiene un false
+        return cuantosFalses(A,i0, i1, j0, mitadColum);
+    } else{
+        return cuantosFalses(A,i0,i1, mitadColum+1, j1);
+    }
+}
+```
+Complejidad: O(log n) ???
