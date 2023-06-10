@@ -268,3 +268,43 @@ int parejasEnDesorden(int arr[], int l, int r) {
 }
 ```
 Complejidad: O(n * log n)
+
+## Ejercicio 8
+<div style="text-align: justify">
+Aquí hice algo parecido a búsqueda binaria pero con matrices. La idea es dividir la matriz en dos y fijarse con la función conjuncionSubmatriz si da true o falso. Si ese resultado es true quiere decir que no hay ningún false en esa mitad entonces se hace recursión sobre la otra. Se sigue así hasta encontrar la corrdenada que se necesita.
+</div>
+<br>
+
+```cpp
+tuple<int, int> buscarFalse(vector<vector<bool>> A, int i0, int i1, int j0, int j1){
+
+    // guardo la mitad de filas y columnas
+    int mitadFila = (i0+i1)/2;
+    int mitadColum = (j0+j1)/2;
+    
+    // guardo la conjuncion de la mitad de filas y columnas izquierdas
+    bool conjMitadFilaIzq = conjuncionSubmatriz(A,i0, mitadFila, j0, j1);
+    bool conjMitadColumIzq = conjuncionSubmatriz(A,i0, i1, j0, mitadColum);
+
+    //caso base: significa que estoy en la posición que tiene un false
+    if(i0==i1 && j0==j1){
+        return make_pair(i0,j0);
+    }
+    // caso en que sea solo una columna
+    if(!conjMitadFilaIzq && j0==j1){
+        return buscarFalse(A,i0, mitadFila, j0, j1); // voy dividiendo la fila con búsqueda binaria hasta encontrar el false
+    }
+    else if(j0==j1) { // lo mismo en caso de que el false esté al otro lado
+        return buscarFalse(A, mitadFila+1, i1, j0, j1);
+    }
+
+    // este es el caso general, es parecido al de arriba pero voy reduciendo las columnas (j)
+    if(!conjMitadColumIzq && j0==j1){ // si da falso es porque algún falso hay en esta mitad
+        return buscarFalse(A,i0, i1, j0, mitadColum);
+    }
+    else{ // si lo anterior da true entonces el falso está en la otra mitad
+        return buscarFalse(A,i0,i1, mitadColum+1, j1);
+    }
+}
+```
+Complejidad: O(n * log n) ? (siendo n cantidad de posiciones?) 
