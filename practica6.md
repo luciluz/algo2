@@ -308,11 +308,11 @@ tuple<int, int> buscarFalse(vector<vector<bool>> A, int i0, int i1, int j0, int 
     }
 }
 ```
-Complejidad: O(log n) ? (siendo n cantidad de posiciones?) 
+Complejidad: O(n*log n) ? (siendo n cantidad de posiciones?) 
 
 ### 2.
 <div style="text-align: justify">
-En este caso el algoritmo es similar, sólo hay que hacer algunos cambios. La recursion siempre se hará si es que hay un false en esa mitad y parará cuando llegue a una posición false o simplemente no hay ningún falso en esas mitades.
+En este caso el algoritmo es similar, sólo hay que hacer algunos cambios. La recursion siempre se hará si es que hay un false en esa mitad y parará cuando llegue a una posición false o simplemente no haya ningún falso en esa mitad.
 </div>
 <br>
 
@@ -354,4 +354,5 @@ int cuantosFalses(vector<vector<bool>> A, int i0, int i1, int j0, int j1){
     }
 }
 ```
-Complejidad: O(log n) ???
+Complejidad: O(n*log n)
+Explicación: Si para encontrar un falso haciendo búsqueda binaria se logra en log n. Si tengo que encontrar a lo sumo 5 falsos será a lo sumo en 5*log n.
