@@ -234,6 +234,9 @@ int maxDistanciaABB(Nodo* nodo) { // esta es la función que pide la consigna
 Complejidad: te la debo
 
 ## Ejercicio 7
+<div style="text-align: justify">
+La idea es hacer algo similar al merge sort. Se hacen dos recursiones, una con cada mitad del arreglo y se hace el merge para que queden ordenadas. Luego para contar las parejas se va viendo desde el primer elemento de cada mitad y si en algún punto A[i] > A[j] entonces se que el resto de elementos de la primera mitad tambi
+</div>
 
 ```cpp
 int parejasEnDesorden(int arr[], int l, int r) {
