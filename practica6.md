@@ -100,6 +100,85 @@ int potenciaLog(int base, int exp){
 ```
 Complejidad: O(log b)
 
+## Ejercicio 5
+<div style="text-align: justify">
+    El truco está en que podemos dividir el arreglo a la mitad ( A[1..n/2] ) y de esta forma para no perder la suma que va desde el (n/2)+1 hasta n, podemos notar que A^((n/2)+i) = A^(n/2) * A^i. Entonces se calcula sólo la mitad del arreglo y para la otra mitad se tiene que es igual a la anterior pero multiplicada por A^(n/2). 
+    
+</div>
+<br>
+
+```cpp
+// algoritmo para sumar matrices (se asume que A y B son cuadradas del mismo tamaño)
+vector<vector<int>> sumaMatrices(const vector<vector<int>>& A, const vector<vector<int>>& B) {
+    int n = A.size();
+    vector<vector<int>> res(n, vector<int>(n, 0));
+
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            res[i][j]=A[i][j]+B[i][j];
+        }
+    }
+    return res;
+}
+
+
+// algoritmo para multiplicar dos matrices (se asume que A y B son cuadradas del mismo tamaño)
+vector<vector<int>> multiplicarMatrices(const vector<vector<int>>& A, const vector<vector<int>>& B) {
+    int n = A.size();
+    vector<vector<int>> res(n, vector<int>(n, 0));
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            for (int k = 0; k < n; k++) {
+                res[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+    return res;
+}
+
+// algoritmo para calcular A^n utilizando el método potencia
+vector<vector<int>> metodoPotencia(const vector<vector<int>>& A, int n) {
+    if (n == 0) {
+        int dim = A.size();
+        vector<vector<int>> matrizId(dim, vector<int>(dim, 0));
+        for (int i = 0; i < dim; i++) {
+            matrizId[i][i] = 1;
+        }
+        return matrizId;
+    } else if (n == 1) {
+        return A;
+    } else {
+        vector<vector<int>> mid = metodoPotencia(A, n / 2);
+        vector<vector<int>> res = multiplicarMatrices(mid, mid);
+        if (n % 2 == 1) {
+            res = multiplicarMatrices(res, A);
+        }
+        return res;
+    }
+}
+
+// algoritmo para calcular A^1 + A^2 + ... + A^n con dividir y conquistar
+vector<vector<int>> sumaPotencias(const vector<vector<int>>& A, int n) {
+    if (n == 1) {
+        return A;
+    } else {
+        //dividimos el arreglo a la mitad haciendo una recursión con la primera parte
+        vector<vector<int>> recursionMitad = sumaPotencias(A, n / 2);
+
+        //calculamos el valor de A^(n/2)
+        vector<vector<int>> potenciaMitad = metodoPotencia(A, n / 2);
+
+        //multiplicamos las dos matrices anteriores
+        vector<vector<int>> casiRes = multiplicarMatrices(recursionMitad,potenciaMitad);
+
+        //devolvemos la suma entre la última multiplicación y la recursión
+        return sumaMatrices(casiRes, recursionMitad);
+    }
+}
+```
+Complejidad: te la debo
+
 ## Ejercicio 6
 <div style="text-align: justify">
 Dado un arbol, quiero encontrar la distancia máxima que hay entre dos nodos. Para ello, se hace recursión con cada hijo del árbol. Luego, devuelvo el máximo entre la recursión de los dos hijos y la suma de las alturas de esos mismos.
@@ -152,3 +231,6 @@ int maxDistanciaABB(Nodo* nodo) { // esta es la función que pide la consigna
     return max(max(izqDistancia, derDistancia), alturaABB(nodo->izq) + alturaABB(nodo->der));
 }
 ```
+Complejidad: te la debo
+
+## Ejercicio 7
