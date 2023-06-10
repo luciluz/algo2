@@ -234,3 +234,33 @@ int maxDistanciaABB(Nodo* nodo) { // esta es la función que pide la consigna
 Complejidad: te la debo
 
 ## Ejercicio 7
+
+```cpp
+int parejasEnDesorden(int arr[], int l, int r) {
+    if(l==r){
+        return 0;
+    }
+
+    int mid=(l+r)/2;
+    int mitadIzq=parejasEnDesorden(arr, l, mid);
+    int mitadDer=parejasEnDesorden(arr, mid+1, r);
+
+    merge(arr, l, mid, r); // hasta aquí ordené el arreglo con merge sort
+
+    // luego contamos las parejas
+    int cont=0;
+    int i=0; // índice primera mitad
+    int j=mid+1; // índice segunda mitad
+
+    while(i<=mid && j<=r) { // O(n)
+        if(arr[i] > arr[j]) {
+            cont+=(mid-i+1);  // si ya uno es mayor, el resto de esa mitad también
+            j++;
+        } else {
+            i++;
+        }
+    }
+    return mitadIzq+mitadDer+cont;
+}
+```
+Complejidad: O(n * log n)
