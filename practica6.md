@@ -177,7 +177,7 @@ vector<vector<int>> sumaPotencias(const vector<vector<int>>& A, int n) {
     }
 }
 ```
-Complejidad: te la debo
+Complejidad: O(log n)
 
 ## Ejercicio 6
 <div style="text-align: justify">
