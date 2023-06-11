@@ -355,4 +355,4 @@ int cuantosFalses(vector<vector<bool>> A, int i0, int i1, int j0, int j1){
 }
 ```
 Complejidad: O(log n^2)
-Explicación: Si para encontrar un falso haciendo búsqueda binaria se logra en log n^2. Si tengo que encontrar a lo sumo 5 falsos será a lo sumo en 5*log n^2.
+Explicación: Si para encontrar un falso haciendo búsqueda binaria se logra en log n^2. Si tengo que encontrar a lo sumo 5 falsos será a lo sumo en 5*log n^2. El problema es que para n < 4 la complejidad llega a ser mayor que n^2
