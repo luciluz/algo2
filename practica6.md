@@ -308,7 +308,7 @@ tuple<int, int> buscarFalse(vector<vector<bool>> A, int i0, int i1, int j0, int 
     }
 }
 ```
-Complejidad: O(n*log n) ? (siendo n cantidad de posiciones?) 
+Complejidad: O(log n^2) donde n es la cantidad de filas o columnas. 
 
 ### 2.
 <div style="text-align: justify">
@@ -354,5 +354,5 @@ int cuantosFalses(vector<vector<bool>> A, int i0, int i1, int j0, int j1){
     }
 }
 ```
-Complejidad: O(n*log n)
-Explicación: Si para encontrar un falso haciendo búsqueda binaria se logra en log n. Si tengo que encontrar a lo sumo 5 falsos será a lo sumo en 5*log n.
+Complejidad: O(log n^2)
+Explicación: Si para encontrar un falso haciendo búsqueda binaria se logra en log n^2. Si tengo que encontrar a lo sumo 5 falsos será a lo sumo en 5*log n^2.
