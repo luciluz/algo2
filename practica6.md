@@ -228,7 +228,7 @@ int maxDistanciaABB(Nodo* nodo) { // esta es la función que pide la consigna
     int izqDistancia = maxDistanciaABB(nodo->izq);
     int derDistancia = maxDistanciaABB(nodo->der);
 
-    return max(max(izqDistancia, derDistancia), alturaABB(nodo->izq) + alturaABB(nodo->der));
+    return max(max(izqDistancia, derDistancia), alturaABB(nodo->izq) + alturaABB(nodo->der) + 2);
 }
 ```
 Complejidad: te la debo
